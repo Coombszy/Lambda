@@ -1,4 +1,4 @@
-module github.com/lamda
+module github.com/lamdda
 
 go 1.16
 
