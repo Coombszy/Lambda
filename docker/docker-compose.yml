@@ -1,0 +1,36 @@
+version: '2'
+
+services:
+
+    # Database service
+    DATA_Postgres:
+        image: postgres
+        container_name: DATA_Postgres
+        environment:
+            POSTGRES_USER: "lambda"
+            POSTGRES_PASSWORD: "lambda_password"
+            POSTGRES_DB: "lambda_db"
+        volumes:
+            - DATA_TIER_DATA:/var/lib/postgresql/data
+        ports:
+            - 5432:5432
+        # networks:
+        #     - DATA_TIER_NET
+    
+    # Migrates Database to latest version using SQL files
+    # DATA_Flyway:
+    #     image: flyway/flyway
+    #     container_name: DATA_Flyway
+    #     command: -url=jdbc:postgresql://DATA_Postgres:5432/lambda_db -locations=filesystem:/flyway/sql -schemas=lambda_schema -user=lambda -password=lambda_password -connectRetries=5 migrate
+    #     volumes:
+    #         - ./../../application/QManager-MIGRATION/sql:/flyway/sql
+    #     depends_on:
+    #         - DATA_Postgres
+    #     networks:
+    #         - DATA_TIER_NET
+
+# networks: 
+#     DATA_TIER_NET:
+
+volumes:
+    DATA_TIER_DATA:
