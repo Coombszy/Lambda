@@ -26,7 +26,15 @@ func main() {
 	// Middleware
 	// -----------
 
-	e.Use(middleware.Logger())
+	e.Use(middleware.LoggerWithConfig(middleware.LoggerConfig{
+		Skipper: func(c echo.Context) bool {
+			// Skip authentication for signup and login requests
+			if c.Path() == "/dev" {
+				return true
+			}
+			return false
+		},
+	}))
 	e.Use(middleware.Recover())
 
 	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
@@ -37,7 +45,7 @@ func main() {
 		SigningKey: []byte(handler.Key),
 		Skipper: func(c echo.Context) bool {
 			// Skip authentication for signup and login requests
-			if c.Path() == "/login" || c.Path() == "/signup" {
+			if c.Path() == "/login" || c.Path() == "/signup" || c.Path() == "/dev" {
 				return true
 			}
 			return false
@@ -76,7 +84,7 @@ func main() {
 
 	// Dev
 	counter := 0
-	e.GET("/", func(c echo.Context) error {
+	e.GET("/dev", func(c echo.Context) error {
 		counter += 1
 		return c.JSON(http.StatusOK, fmt.Sprintf("Hello, World! %d", counter))
 	})
