@@ -45,7 +45,10 @@ func main() {
 		SigningKey: []byte(handler.Key),
 		Skipper: func(c echo.Context) bool {
 			// Skip authentication for signup and login requests
-			if c.Path() == "/login" || c.Path() == "/signup" || c.Path() == "/dev" {
+			if c.Path() == "/login" ||
+				c.Path() == "/signup" ||
+				c.Path() == "/dev" ||
+				c.Path() == "/dev/listusers" {
 				return true
 			}
 			return false
@@ -91,7 +94,7 @@ func main() {
 
 	// Users
 	e.POST("/signup", h.Signup)
-	// e.POST("/login", h.Login)
+	e.GET("/dev/listusers", h.ListUsers)
 
 	// Start Echo and Logger
 	e.Logger.Fatal(e.Start(":1323"))
