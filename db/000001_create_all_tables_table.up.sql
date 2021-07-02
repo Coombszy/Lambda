@@ -17,7 +17,7 @@ CREATE TABLE IF NOT EXISTS user_groups (
    name VARCHAR (16) NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS user_group_assignment (
+CREATE TABLE IF NOT EXISTS user_group_assignments (
    id SERIAL PRIMARY KEY,
    user_id SERIAL REFERENCES users(id),
    group_id SERIAL REFERENCES user_groups(id)
@@ -37,9 +37,14 @@ CREATE TABLE IF NOT EXISTS workspaces (
 CREATE TABLE IF NOT EXISTS workspace_groups (
    id SERIAL PRIMARY KEY,
    name VARCHAR(16) NOT NULL,
-   workspace_id SERIAL REFERENCES workspaces(id),
-   user_id SERIAL REFERENCES users(id)
 );
+
+CREATE TABLE IF NOT EXISTS user_workspace_assignments (
+   id SERIAL PRIMARY KEY,
+   user_id SERIAL REFERENCES users(id),
+   workspace_id SERIAL REFERENCES workspaces(id),
+   workspace_group_id SERIAL REFERENCES workspace_groups(id)
+)
 
 CREATE TABLE IF NOT EXISTS desks (
    id SERIAL PRIMARY KEY,

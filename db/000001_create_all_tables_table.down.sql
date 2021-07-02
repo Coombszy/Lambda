@@ -1,3 +1,4 @@
+DROP TABLE IF EXISTS user_workspace_assignments;
 DROP TABLE IF EXISTS user_group_assignment;
 DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS user_groups;
