@@ -28,7 +28,7 @@ func main() {
 
 	e.Use(middleware.LoggerWithConfig(middleware.LoggerConfig{
 		Skipper: func(c echo.Context) bool {
-			// Skip authentication for signup and login requests
+			// Skip logging on dev endpoint
 			return c.Path() == "/dev"
 		},
 	}))
