@@ -1,5 +1,0 @@
-CREATE TABLE IF NOT EXISTS users(
-   email VARCHAR(64) PRIMARY KEY,
-   name VARCHAR (64) NOT NULL,
-   password VARCHAR (60) NOT NULL
-);

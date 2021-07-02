@@ -29,10 +29,7 @@ func main() {
 	e.Use(middleware.LoggerWithConfig(middleware.LoggerConfig{
 		Skipper: func(c echo.Context) bool {
 			// Skip authentication for signup and login requests
-			if c.Path() == "/dev" {
-				return true
-			}
-			return false
+			return c.Path() == "/dev"
 		},
 	}))
 	e.Use(middleware.Recover())
