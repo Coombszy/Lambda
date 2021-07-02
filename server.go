@@ -38,11 +38,14 @@ func main() {
 		AllowOrigins: []string{"*"},
 		AllowMethods: []string{echo.GET, echo.PUT, echo.POST, echo.DELETE},
 	}))
+	// -----------
+	// Middleware (Authentication)
+	// -----------
 	e.Use(middleware.JWTWithConfig(middleware.JWTConfig{
 		SigningKey: []byte(handler.Key),
 		Skipper: func(c echo.Context) bool {
 			// Skip authentication for signup and login requests
-			if c.Path() == "/login" || c.Path() == "/signup" || c.Path() == "/dev" {
+			if c.Path() == "/login" || c.Path() == "/signup" || c.Path() == "/dev/*" {
 				return true
 			}
 			return false
