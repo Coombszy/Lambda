@@ -29,7 +29,7 @@ func main() {
 	e.Use(middleware.LoggerWithConfig(middleware.LoggerConfig{
 		Skipper: func(c echo.Context) bool {
 			// Skip logging on dev endpoint
-			return c.Path() == "/dev"
+			return c.Path() == "/dev/*"
 		},
 	}))
 	e.Use(middleware.Recover())
