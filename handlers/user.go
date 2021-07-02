@@ -25,13 +25,13 @@ func (h *Handler) Signup(c echo.Context) (err error) {
 
 	// Save user
 	sqlStatement := "INSERT INTO users (name, email, creation, password)VALUES ($1, $2, NOW(), $3)"
-	res, err := db.Query(sqlStatement, u.Email, u.Name, u.Password)
-
+	rows, err := db.Query(sqlStatement, u.Email, u.Name, u.Password)
+	rows.Close()
 	// Returns
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, err)
 	} else {
-		return c.JSON(http.StatusCreated, res)
+		return c.JSON(http.StatusCreated, rows)
 	}
 }
 
@@ -57,11 +57,13 @@ func (h *Handler) ListUsers(c echo.Context) (err error) {
 	var user model.User
 	rows.Next()
 	err = rows.Scan(&user.Name, &user.Email, &user.Password)
+	rows.Close()
+	// Return if error
 	if err != nil {
 		fmt.Println("scan error : " + err.Error())
 		return c.JSON(http.StatusInternalServerError, err)
 	}
 
 	// Returns
-	return c.JSON(http.StatusAccepted, user)
+	return c.JSON(http.StatusOK, user)
 }
