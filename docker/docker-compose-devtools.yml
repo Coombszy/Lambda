@@ -1,0 +1,16 @@
+version: '2'
+
+services:
+    DEVTOOLS_Adminer:
+        image: adminer
+        container_name: DEVTOOLS_Adminer
+        environment:
+            ADMINER_DEFAULT_DB_DRIVER: pgsql
+            ADMINER_DEFAULT_DB_HOST: DATA_Postgres
+            ADMINER_DEFAULT_DB_NAME: lambda_db
+        ports:
+            - 1000:8080
+            - 1001:9000
+
+volumes:
+    DATA_TIER_DATA:
