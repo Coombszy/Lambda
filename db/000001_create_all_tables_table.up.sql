@@ -7,9 +7,9 @@ CREATE TABLE IF NOT EXISTS users (
    id SERIAL PRIMARY KEY,
    name VARCHAR (32) NOT NULL,
    email VARCHAR(64) UNIQUE NOT NULL,
-   creation DATETIME NOT NULL,
+   creation TIMESTAMPTZ NOT NULL,
    password TEXT NOT NULL,
-   last_login DATETIME
+   last_login TIMESTAMPTZ
 );
 
 CREATE TABLE IF NOT EXISTS user_groups (
@@ -29,8 +29,8 @@ CREATE TABLE IF NOT EXISTS user_group_assignment (
 CREATE TABLE IF NOT EXISTS workspaces (
    id SERIAL PRIMARY KEY,
    name VARCHAR(32),
-   creation DATETIME NOT NULL,
-   last_used DATETIME NOT NULL,
+   creation TIMESTAMPTZ NOT NULL,
+   last_used TIMESTAMPTZ NOT NULL,
    floors INT NOT NULL
 );
 
@@ -44,7 +44,7 @@ CREATE TABLE IF NOT EXISTS workspace_groups (
 CREATE TABLE IF NOT EXISTS desks (
    id SERIAL PRIMARY KEY,
    name VARCHAR(16) NOT NULL,
-   creation DATETIME NOT NULL,
+   creation TIMESTAMPTZ NOT NULL,
    workspace_id SERIAL REFERENCES workspaces(id),
    floor INT NOT NULL,
    location_x INT NOT NULL,
@@ -56,6 +56,6 @@ CREATE TABLE IF NOT EXISTS desk_bookings (
    id SERIAL PRIMARY KEY,
    desk_id SERIAL REFERENCES desks(id),
    user_id SERIAL REFERENCES users(id),
-   start_date DATETIME NOT NULL,
-   end_date DATETIME
+   start_date TIMESTAMPTZ NOT NULL,
+   end_date TIMESTAMPTZ
 );
