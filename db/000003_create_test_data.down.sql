@@ -1,3 +1,3 @@
 -- Remove test user
 DELETE FROM users
-WHERE id = '111111';
+WHERE id = 111111;
